@@ -25,10 +25,10 @@ public class LoadDatabase {
 	@Bean
 	CommandLineRunner initDatabase(IPacienteRepository repository, IFuncionarioRepository repositoryF) {
 		return args -> {
-            Paciente paciente1 = new Paciente("Lince", 20, "10291827682", "felino@email.com",
-            "Rua Laranjeiras", "123");
-            Paciente paciente2 = new Paciente("Clarice", 30, "11212827682", "clarice@email.com",
-            "Rua Laranjeiras", "456");
+            Paciente paciente1 = new Paciente("Lince", "10291827682", "20/10/1992", "20202020", "Rua ficticia", "email@email.com", "202020");
+            
+            Paciente paciente2 = new Paciente("PAciente", "10222227682", "20/10/2000", "202111120", "Rua ficticia2", "email@email.com", "101010");
+        
             repository.saveAll(Arrays.asList(paciente1, paciente2));
             logger.info(">>>>> loaddatabase -> 2 pacientes cadastrados no db.");
 
