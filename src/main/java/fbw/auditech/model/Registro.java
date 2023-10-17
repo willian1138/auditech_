@@ -1,16 +1,21 @@
 package fbw.auditech.model;
 
+import lombok.Data;
+
+//import java.util.UUID;
+@Data
 public class Registro {
     private Long id;
     private String descricao;
     private String categoria;
-    private byte[] foto;
+    private String funcao;
+   ;
 
-    public Registro(Long id, String descricao, String categoria, byte[] foto) {
+    public Registro(Long id, String descricao, String categoria) {
         this.id = id;
         this.descricao = descricao;
         this.categoria = categoria;
-        this.foto = foto;
+        ;
     }
     public Registro(){
         
@@ -40,11 +45,4 @@ public class Registro {
         this.categoria = categoria;
     }
 
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
 }

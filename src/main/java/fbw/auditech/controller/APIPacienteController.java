@@ -45,6 +45,19 @@ public class APIPacienteController {
 		logger.info(">>>>>> apicontroller consulta todos");
 		return ResponseEntity.status(HttpStatus.OK).body(pacienteServico.consultaRegistroPacientes());
 	}
+	
+	@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3000/"})
+	@GetMapping("/{id}")
+	public ResponseEntity <Object> consultaPorId(@PathVariable String id){
+		logger.info(">>>>>> apicontroller consulta por id");
+		Optional<Paciente> paciente = pacienteServico.consultarPorId(id);
+		
+		if (paciente.isPresent()) {
+			return ResponseEntity.status(HttpStatus.OK).body(paciente.get());
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado com o ID: " + id);
+		}
+	}
 
 	@CrossOrigin
 	@PostMapping("/cadastro")

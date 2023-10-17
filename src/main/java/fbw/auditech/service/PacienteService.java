@@ -4,7 +4,7 @@ package fbw.auditech.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+//import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import fbw.auditech.model.Registro;
 import fbw.auditech.model.IPacienteRepository;
-import fbw.auditech.model.Foto;
 import fbw.auditech.model.Paciente;
 
 @Service
@@ -34,18 +33,16 @@ public class PacienteService implements IPacienteService {
 		Registro c = null;
 		List < Registro > lista = new ArrayList < Registro > ();
 		List < Paciente > listaP = repositoryP.findAll();
-		List < Foto > listaF = fotoService.getAll();
 		for (Paciente p : listaP) {
-			for (Foto i : listaF) {
-				if (p.getId().equals(i.getId())) {
-					c = new Registro(p.getId(), p.getNome(), p.getCpf(),
-						 i.getArquivo());
-					lista.add(c);
-				}
-			}
+			c = new Registro(p.getId(), p.getNome(), p.getCpf());
+			lista.add(c);
 		}
 		return lista;
 	}
+			
+		
+		
+	
 	@Override
 	public List<Paciente> consultaPorNome() {
 		// TODO Auto-generated method stub
@@ -59,10 +56,19 @@ public class PacienteService implements IPacienteService {
 		//throw new UnsupportedOperationException("Unimplemented method 'cadastrar'");
 	}
 	@Override
-	public Optional<Paciente> consultarPorId(String id) {
+	public Optional<Paciente> consultarPorId(String id) throws ResourceNotFoundException {
+
+		logger.info(">>>servico cadastrar paciente iniciado");
+		Optional<Paciente> paciente = repositoryP.findById(Long.parseLong(id));
+		if(paciente.isPresent()){
+			return paciente;
+		}
+		else{}
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'consultarPorId'");
+		throw new ResourceNotFoundException("Paciente não encontrado para o id '" + id + "'");
 	}
+
+
 	@Override
 	public Optional<Paciente> atualizar(Long id, Paciente pacienteAtualizado) {
 		Optional<Paciente> pacienteExistente = repositoryP.findById(id);

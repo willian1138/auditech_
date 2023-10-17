@@ -2,6 +2,8 @@ package fbw.auditech.service;
 
 import java.util.List;
 import java.util.Optional;
+//import java.util.UUID;
+
 import fbw.auditech.model.Paciente;
 import fbw.auditech.model.Registro;
 

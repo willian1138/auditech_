@@ -12,7 +12,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import fbw.auditech.model.Foto;
+import fbw.auditech.model.Funcionario;
 import fbw.auditech.model.IFotoRepository;
+import fbw.auditech.model.IFuncionarioRepository;
 import fbw.auditech.model.Paciente;
 import fbw.auditech.model.IPacienteRepository;
 @Configuration
@@ -21,12 +23,12 @@ public class LoadDatabase {
 	@Autowired
 	IFotoRepository fotoRepository;
 	@Bean
-	CommandLineRunner initDatabase(IPacienteRepository repository) {
+	CommandLineRunner initDatabase(IPacienteRepository repository, IFuncionarioRepository repositoryF) {
 		return args -> {
             Paciente paciente1 = new Paciente("Lince", 20, "10291827682", "felino@email.com",
-            "Rua Laranjeiras");
+            "Rua Laranjeiras", "123");
             Paciente paciente2 = new Paciente("Clarice", 30, "11212827682", "clarice@email.com",
-            "Rua Laranjeiras");
+            "Rua Laranjeiras", "456");
             repository.saveAll(Arrays.asList(paciente1, paciente2));
             logger.info(">>>>> loaddatabase -> 2 pacientes cadastrados no db.");
 
@@ -53,6 +55,14 @@ public class LoadDatabase {
             foto.setArquivo(arquivo2);
             logger.info(">>>>> loaddatabase -> upload de arquivo foto realizado => " + arquivo2.length);
             fotoRepository.save(foto);
+
+            Funcionario funcionario1 = new Funcionario("Willian", "10291827222", "wllian@email.com",
+            "Rua acai", "comsono");
+            Funcionario funcionario2 = new Funcionario( "Funcione", "11222827682", "funcione@email.com",
+            "Rua ladeira", "semsono");
+            repositoryF.save(funcionario1);
+            repositoryF.save(funcionario2);
+            logger.info(">>>>> loaddatabase -> 2 funcionarios cadastrados no db.");
         };
     }
 }
