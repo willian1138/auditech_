@@ -77,10 +77,12 @@ public class PacienteService implements IPacienteService {
 			Paciente paciente = pacienteExistente.get();
 
 			paciente.setNome(pacienteAtualizado.getNome());
-			paciente.setIdade(pacienteAtualizado.getIdade());
 			paciente.setCpf(pacienteAtualizado.getCpf());
-			paciente.setEmail(pacienteAtualizado.getEmail());
+			paciente.setDataDeNascimento(pacienteAtualizado.getDataDeNascimento());	
+			paciente.setNumeroDeTelefone(pacienteAtualizado.getNumeroDeTelefone();
 			paciente.setEndereco(pacienteAtualizado.getEndereco());
+			paciente.setEmail(pacienteAtualizado.getEmail());
+			paciente.setSenha(pacienteAtualizado.getSenha());
 			return Optional.ofNullable(repositoryP.save(paciente));
 		} else{
 			return Optional.empty();
