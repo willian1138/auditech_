@@ -81,7 +81,7 @@ public class FuncionarioService implements IFuncionarioService {
         for(Funcionario f : listaFuncionarios){
             r = new Registro();
             r.setId(f.getId());
-            r.setDescricao(f.getNome());
+            r.setNome(f.getNome());
             r.setFuncao(f.getFuncao());
             lista.add(r);
         }

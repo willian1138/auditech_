@@ -25,16 +25,17 @@ public class LoadDatabase {
 	@Bean
 	CommandLineRunner initDatabase(IPacienteRepository repository, IFuncionarioRepository repositoryF) {
 		return args -> {
-            Paciente paciente1 = new Paciente("Lince", "10291827682", "20/10/1992", "20202020", "Rua ficticia", "email@email.com", "202020");
+            Paciente paciente1 = new Paciente("Lince", "10291827682", "20/10/1992", "20202020", "Rua ficticia", "email@email.com", "202020", "Johnson", "00098273782");
             
-            Paciente paciente2 = new Paciente("PAciente", "10222227682", "20/10/2000", "202111120", "Rua ficticia2", "email@email.com", "101010");
+            Paciente paciente2 = new Paciente("PAciente", "10222227682", "20/10/2000", "202111120", "Rua ficticia2", "email@email.com", "101010", "Baby", "87264527381");
         
             repository.saveAll(Arrays.asList(paciente1, paciente2));
             logger.info(">>>>> loaddatabase -> 2 pacientes cadastrados no db.");
 
             // Upload - obtém a foto do caminho, atribui ao objeto foto e salva no banco de dados do servidor
 
-            Path path = Paths.get("c:\\Users\\psilv\\Desktop\\fotopaciente\\produto1.jpg");
+            Path path = Paths.get("C:\\Users\\dti\\Downloads\\produto1.jpg");
+
             InputStream file = Files.newInputStream(path);
             byte[] arquivo1 = file.readAllBytes();
             Foto foto = new Foto();
@@ -45,7 +46,7 @@ public class LoadDatabase {
             logger.info(">>>>> loaddatabase -> upload de arquivo foto realizado => " + arquivo1.length);
             fotoRepository.save(foto);
 
-            path = Paths.get("c:\\Users\\psilv\\Desktop\\fotopaciente\\produto2.jpg");
+            path = Paths.get("C:\\Users\\dti\\Downloads\\produto2.jpg");
             file = Files.newInputStream(path);
             byte[] arquivo2 = file.readAllBytes();
             foto = new Foto();

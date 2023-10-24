@@ -125,10 +125,12 @@ public ResponseEntity<Object> atualizarPaciente(@PathVariable Long id, @RequestB
 
 @CrossOrigin
 @DeleteMapping("/excluir/{id}")
-public ResponseEntity<Object> excluirPaciente(@PathVariable Long id) {
+public ResponseEntity<Object> excluirPaciente(@PathVariable String id) {
+	Long idLong = Long.parseLong(id);
 	logger.info(">>>>>>apicontroller excluir paciente iniciado");
+
     try {
-        pacienteServico.excluir(id);
+        pacienteServico.excluir(idLong);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     } catch (ResourceNotFoundException e) {//pesquisando para tratar esse essa expection
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado com o ID: " + id);
