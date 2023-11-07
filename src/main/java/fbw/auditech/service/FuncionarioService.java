@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import fbw.auditech.model.Funcionario;
 import fbw.auditech.model.IFuncionarioRepository;
+import fbw.auditech.model.Paciente;
 import fbw.auditech.model.Registro;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,47 +33,47 @@ public class FuncionarioService implements IFuncionarioService {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'cadastrar'");
     }
+
     @Override
-    public Optional<Funcionario> consultarPorId(Long id) throws ResourceNotFoundException {
+    public Optional<Funcionario> consultarPorId(String id) throws ResourceNotFoundException {
         logger.info(">>>servico consultar funcionario por id iniciado");
-        Optional<Funcionario> funcionario = repositoryF.findById(id);
-        if(funcionario.isPresent())
-        {
-            return funcionario;}
-        else{
-            throw new ResourceNotFoundException("Funcionario não encontrado");
+        Optional<Funcionario> funcionario = repositoryF.findById(Long.parseLong(id));
+        if (funcionario.isPresent()) {
+            return funcionario;
+        } else {
+            throw new ResourceNotFoundException("Funcionario não encontrado para o ID '" + id + "'");
         }
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'consultarPorId'");
     }
+    
     @Override
-    public Optional<Funcionario> atualizar(Long id, Funcionario funcionario) {
-        Optional<Funcionario> funcionarioAtual = repositoryF.findById(id);
-        if(funcionarioAtual.isPresent()){
-            funcionarioAtual.get().setNome(funcionario.getNome());
-            funcionarioAtual.get().setCpf(funcionario.getCpf());
-            funcionarioAtual.get().setEmail(funcionario.getEmail());
-            funcionarioAtual.get().setEndereco(funcionario.getEndereco());
-            return Optional.ofNullable(repositoryF.save(funcionarioAtual.get()));
+    public Optional<Funcionario> atualizar(Long id, Funcionario funcionarioAtualizado) {
+        Optional<Funcionario> funcionarioExistente = repositoryF.findById(id);
+        if(funcionarioExistente.isPresent()){
+            Funcionario funcionario = funcionarioExistente.get();
+
+            funcionario.setNome(funcionarioAtualizado.getNome());
+            funcionario.setCpf(funcionarioAtualizado.getCpf());
+            funcionario.setEmail(funcionarioAtualizado.getEmail());
+            funcionario.setEndereco(funcionarioAtualizado.getEndereco());
+            funcionario.setFuncao(funcionarioAtualizado.getFuncao());
+            return Optional.ofNullable(repositoryF.save(funcionario));
         } else{
             return Optional.empty();
         }
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+
     }
     @Override
-    public void excluir(Long id) {
+    public void excluir(Long id) throws ResourceNotFoundException{
         logger.info(">>>servico excluir funcionario por id iniciado");
-        Optional<Funcionario> funcionario = repositoryF.findById(id);
-        if(funcionario.isPresent()){
+        Optional<Funcionario> funcionarioExistente = repositoryF.findById(id);
+        if(funcionarioExistente.isPresent()){
             repositoryF.deleteById(id);
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
+        
+        } else {
+            throw new ResourceNotFoundException();
+        }
     }
 
-   
-
-}
 	@Override
 	public List<Registro> consultaRegistroFuncionarios() {
         Registro r = null;

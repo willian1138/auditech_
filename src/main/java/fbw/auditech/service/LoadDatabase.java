@@ -34,7 +34,7 @@ public class LoadDatabase {
 
             // Upload - obtém a foto do caminho, atribui ao objeto foto e salva no banco de dados do servidor
 
-            Path path = Paths.get("C:\\Users\\dti\\Downloads\\produto1.jpg");
+            Path path = Paths.get("C:\\Users\\psilv\\Desktop\\imagens\\produto1.jpg");
 
             InputStream file = Files.newInputStream(path);
             byte[] arquivo1 = file.readAllBytes();
@@ -46,7 +46,7 @@ public class LoadDatabase {
             logger.info(">>>>> loaddatabase -> upload de arquivo foto realizado => " + arquivo1.length);
             fotoRepository.save(foto);
 
-            path = Paths.get("C:\\Users\\dti\\Downloads\\produto2.jpg");
+            path = Paths.get("C:\\Users\\psilv\\Desktop\\imagens\\produto2.jpg");
             file = Files.newInputStream(path);
             byte[] arquivo2 = file.readAllBytes();
             foto = new Foto();
